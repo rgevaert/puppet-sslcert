@@ -1,0 +1,6 @@
+name 		'sslcert'
+version 	'1.0.0'
+author 		'brechsteiner'
+summary 	'sslcert'
+description 	''
+dependency 	''
