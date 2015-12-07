@@ -26,7 +26,7 @@ define sslcert::cert (
     $keyfile = $keyname ? {
       undef   => $certname,
       default => $keyname,
-    },
+    }
     file { "${keypath}/${keyfile}":
       content => $key,
       owner   => $keyowner ? {
