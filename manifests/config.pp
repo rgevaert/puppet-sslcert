@@ -1,23 +1,14 @@
 # config.pp - provide configfiles
 
 class sslcert::config inherits sslcert {
-  
-  # define default mode
-  File {
-    mode  => '0644',
-    owner => 'root',
-    group => 'root',
-  }
-  Exec {
-    path  => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin']
-  }
 
-  # provide files
+  ensure_packages('openssl')
+
+  # deploy files
   if ($ensure == true) {
-    if $sslcert {
-      create_resources(sslcert::cert, $sslcert)
+    if $sslcert::certificates {
+      create_resources(sslcert::cert, $sslcert::certificates)
     }
-
   }
 
 }

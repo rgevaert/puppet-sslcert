@@ -1,13 +1,15 @@
-# params.pp - define all value
+# params.pp - define all values
 
 class sslcert::params {
 
   case $::osfamily {
     'Debian': {
-      $path         = hiera(sslcert::path, '/etc/ssl/certs')
+      $certpath = hiera(sslcert::certpath, '/etc/ssl/certs')
+      $keypath  = hiera(sslcert::keypath, '/etc/ssl/private')
     }
     'RedHat': {
-      $path         = hiera(sslcert::path, '/etc/pki/tls/certs')
+      $certpath = hiera(sslcert::certpath, '/etc/pki/tls/certs')
+      $keypath  = hiera(sslcert::keypath, '/etc/pki/tls/private')
     }
   }
 
