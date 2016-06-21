@@ -36,17 +36,18 @@ define sslcert::cert (
   }
   if $ensure == 'present' and $key != '' {
     file { "${keypath}/${keyfile}":
-      ensure  => present,
-      content => $key,
-      owner   => $keyowner ? {
+      ensure    => present,
+      show_diff => false,
+      content   => $key,
+      owner     => $keyowner ? {
         undef   => $owner,
         default => $keyowner,
       },
-      group   => $keygroup ? {
+      group     => $keygroup ? {
         undef   => $group,
         default => $keygroup,
       },
-      mode    => $keymode ? {
+      mode      => $keymode ? {
         undef   => '0600',
         default => $keymode,
       },
