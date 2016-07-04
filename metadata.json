@@ -4,11 +4,12 @@
   "license": "Apache-2.0",
   "author": "automaticserver",
   "summary": "Create SSL certificates and keys.",
+  "source": "https://github.com/rgevaert/puppet-sslcert",
   "tags": [ "ssl", "certificate" ],
   "operatingsystem_support": [
     { "operatingsystem": "Debian" },
     { "operatingsystem": "Ubuntu" },
-    { "operatingsystem": "RedHat" },
+    { "operatingsystem": "RedHat" }
   ],
   "dependencies": [
     { "name": "puppetlabs/stdlib" }
