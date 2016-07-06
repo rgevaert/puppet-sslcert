@@ -2,6 +2,7 @@
 
 define sslcert::cert (
   $ensure   = 'present',
+  $csr      = undef,
   $certpath = $sslcert::certpath,
   $certname,
   $owner    = 'root',
@@ -14,7 +15,7 @@ define sslcert::cert (
   $keygroup = undef,
   $keymode  = undef,
   $key      = '',
-) { 
+) {
 
   if $ensure == 'present' and $cert != '' {
     file { "${certpath}/${certname}":
