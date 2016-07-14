@@ -1,10 +1,11 @@
 # cert.pp - create certificates and keys
 
 define sslcert::cert (
-  $ensure   = 'present',
-  $csr      = undef,
-  $certpath = $sslcert::certpath,
   $certname,
+  $ensure   = 'present',
+  $csr      = '',
+  $certpath = $sslcert::certpath,
+  $chain    = undef,
   $owner    = 'root',
   $group    = 'root',
   $mode     = '0644',
@@ -56,6 +57,20 @@ define sslcert::cert (
   } else {
     file { "${keypath}/${keyfile}":
       ensure => absent,
+    }
+  }
+
+  if $ensure == 'present' and $chain != '' {
+    file { "${certpath}/${certname}.chain":
+      ensure  => present,
+      content => $chain,
+      owner   => $owner,
+      group   => $group,
+      mode    => $mode,
+    }
+  } else {
+    file { "${certpath}/${certname}.chain":
+      ensure  => absent,
     }
   }
 

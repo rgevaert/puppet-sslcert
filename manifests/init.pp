@@ -9,6 +9,6 @@ class sslcert (
 
 ) inherits sslcert::params {
 
-  include sslcert::config
+  include ::sslcert::config
 
 }

@@ -84,5 +84,16 @@ va09I/gRtb6lfd3jXzPR0JE4l/OX5VygSST9ZvoThan6VjZ8Hq4tsBjZLB34z1bt
 ' }
     end
 
+    describe file(certpath + 'www.myhost.com.chain') do
+      it { should be_file }
+      it { should be_mode 644 }
+      it { should be_owned_by 'root' }
+      it { should be_grouped_into 'root' }
+      its(:content) { should match 'some chain text' }
+    end
+
+    describe file(certpath + 'www.myhost.com.csr') do
+      it { should_not exist }
+    end
   end
 end

@@ -106,3 +106,7 @@ sslcert::certificates:
     keyowner: 'www-data'
     keygroup: 'adm'
     keymode: '600'
+    csr: |
+      some csr text
+    chain: |
+      some chain text

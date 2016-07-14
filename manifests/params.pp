@@ -11,6 +11,9 @@ class sslcert::params {
       $certpath = hiera(sslcert::certpath, '/etc/pki/tls/certs')
       $keypath  = hiera(sslcert::keypath, '/etc/pki/tls/private')
     }
+    default: {
+      fail('Unsupported OS')
+    }
   }
 
 }
