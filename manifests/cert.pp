@@ -5,7 +5,7 @@ define sslcert::cert (
   $ensure   = 'present',
   $csr      = '',
   $certpath = $sslcert::certpath,
-  $chain    = undef,
+  $chain    = '',
   $owner    = 'root',
   $group    = 'root',
   $mode     = '0644',
