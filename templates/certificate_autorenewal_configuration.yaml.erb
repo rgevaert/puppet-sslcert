@@ -1,0 +1,14 @@
+# Managed by Puppet
+# puppet-sslcert
+---
+auto_cert_renewal_certificates:
+        <%= @certname %>:
+                certificate_file: "<%= @certpath %>"<% unless @chainpath.empty? %>
+                chain_file: "<%= @chainpath %>"<% end %><% unless @common_name.empty? %>
+                common_name: "<%= @common_name %>"<% end %><% unless @san_names.empty? %>
+                san_names: "<%= @san_names %>"<% end %><% unless @renew_key.empty? %>
+                renew_key: "<%= @renew_key %>"<% end %><% unless @certificate_type.empty? %>
+                certificate_type: "<%= @certificate_type %>"<% end %><% unless @ssl_service_name.empty? %>
+                ssl_service_name: "<%= @ssl_service_name %>"<% end %><% unless @ssl_service_command.empty? %>
+                ssl_service_command: "<%= @ssl_service_command %>"<% end %>
+                key_file: "<%= @keypath %>"

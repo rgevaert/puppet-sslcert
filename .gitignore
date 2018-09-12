@@ -9,3 +9,5 @@ fixtures/
 .vagrant
 .yardoc
 /modules
+.idea
+*.iml

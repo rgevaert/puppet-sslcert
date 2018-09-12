@@ -12,8 +12,12 @@ class sslcert::params {
       $keypath  = hiera(sslcert::keypath, '/etc/pki/tls/private')
     }
     default: {
-      fail('Unsupported OS')
+      fail("Unsupported OS ${::osfamily}")
     }
   }
+  $facts_path = '/etc/facter/facts.d/'
+  $facts_path_owner = 'root'
+  $facts_path_group = 'root'
+  $auto_certificate_renewal_default_enabled = false
 
 }
