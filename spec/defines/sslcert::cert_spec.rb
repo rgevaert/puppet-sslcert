@@ -35,19 +35,19 @@ describe 'sslcert::cert', :type => :define do
 # puppet-sslcert
 ---
 auto_cert_renewal_certificates:
-        other.ugent.be:
-                certificate_file: \"${defaultPathCert}ided.ugent.be\"
-                certificate_mode: \"0644\"
-                certificate_owner: \"root\"
-                certificate_group: \"root\"
-                chain_file: \"${defaultPathCert}ided.ugent.be.chain\"
-                chain_mode: \"0644\"
-                chain_owner: \"root\"
-                chain_group: \"root\"
-                key_file: \"${defaultPathKey}ided.ugent.be.key\"
-                key_mode: \"0600\"
-                key_owner: \"root\"
-                key_group: \"root\""
+  other.ugent.be:
+    certificate_file: \"${defaultPathCert}ided.ugent.be\"
+    certificate_mode: \"0644\"
+    certificate_owner: \"root\"
+    certificate_group: \"root\"
+    chain_file: \"${defaultPathCert}ided.ugent.be.chain\"
+    chain_mode: \"0644\"
+    chain_owner: \"root\"
+    chain_group: \"root\"
+    key_file: \"${defaultPathKey}ided.ugent.be.key\"
+    key_mode: \"0600\"
+    key_owner: \"root\"
+    key_group: \"root\""
           it { is_expected.to contain_file('/etc/facter/facts.d/facts-other.ugent.be-certificate.yaml')
             .with_content(content)
           }
@@ -81,19 +81,19 @@ auto_cert_renewal_certificates:
 # puppet-sslcert
 ---
 auto_cert_renewal_certificates:
-        ided.ugent.be:
-                certificate_file: \"/etc/ssl/certpath.crt\"
-                certificate_mode: \"0644\"
-                certificate_owner: \"root\"
-                certificate_group: \"root\"
-                chain_file: \"/etc/ssl/certpath.chain\"
-                chain_mode: \"0644\"
-                chain_owner: \"root\"
-                chain_group: \"root\"
-                key_file: \"/etc/ssl/keypath.key\"
-                key_mode: \"0600\"
-                key_owner: \"root\"
-                key_group: \"root\""
+  ided.ugent.be:
+    certificate_file: \"/etc/ssl/certpath.crt\"
+    certificate_mode: \"0644\"
+    certificate_owner: \"root\"
+    certificate_group: \"root\"
+    chain_file: \"/etc/ssl/certpath.chain\"
+    chain_mode: \"0644\"
+    chain_owner: \"root\"
+    chain_group: \"root\"
+    key_file: \"/etc/ssl/keypath.key\"
+    key_mode: \"0600\"
+    key_owner: \"root\"
+    key_group: \"root\""
           it { is_expected.to contain_file('/etc/facter/facts.d/facts-ided.ugent.be-certificate.yaml')
             .with_content(content)
           }
@@ -124,25 +124,25 @@ auto_cert_renewal_certificates:
 # puppet-sslcert
 ---
 auto_cert_renewal_certificates:
-        ided.ugent.be:
-                certificate_file: \"/etc/ssl/certpath.crt\"
-                certificate_mode: \"0644\"
-                certificate_owner: \"root\"
-                certificate_group: \"root\"
-                certificate_type: \"ssl_multi_domain\"
-                chain_file: \"/etc/ssl/certpath.chain\"
-                chain_mode: \"0644\"
-                chain_owner: \"root\"
-                chain_group: \"root\"
-                common_name: \"common_name.ugent.be\"
-                san_names: \"test,test,test\"
-                renew_key: \"true\"
-                ssl_service_name: \"ssl_service\"
-                ssl_service_command: \"restarted\"
-                key_file: \"/etc/ssl/keypath.key\"
-                key_mode: \"0600\"
-                key_owner: \"root\"
-                key_group: \"root\""
+  ided.ugent.be:
+    certificate_file: \"/etc/ssl/certpath.crt\"
+    certificate_mode: \"0644\"
+    certificate_owner: \"root\"
+    certificate_group: \"root\"
+    certificate_type: \"ssl_multi_domain\"
+    chain_file: \"/etc/ssl/certpath.chain\"
+    chain_mode: \"0644\"
+    chain_owner: \"root\"
+    chain_group: \"root\"
+    common_name: \"common_name.ugent.be\"
+    san_names: \"test,test,test\"
+    renew_key: \"true\"
+    ssl_service_name: \"ssl_service\"
+    ssl_service_command: \"restarted\"
+    key_file: \"/etc/ssl/keypath.key\"
+    key_mode: \"0600\"
+    key_owner: \"root\"
+    key_group: \"root\""
           it { is_expected.to contain_file('/etc/facter/facts.d/facts-ided.ugent.be-certificate.yaml')
             .with_content(content)
           }
@@ -168,23 +168,23 @@ auto_cert_renewal_certificates:
 # puppet-sslcert
 ---
 auto_cert_renewal_certificates:
-        ided.ugent.be:
-                certificate_file: \"/etc/ssl/cert/www.mydomain.com\"
-                certificate_mode: \"0644\"
-                certificate_owner: \"root\"
-                certificate_group: \"root\"
-                certificate_type: \"ssl_multi_domain\"
-                chain_file: \"/etc/ssl/chain/www.mydomain.com.chain\"
-                chain_mode: \"0644\"
-                chain_owner: \"root\"
-                chain_group: \"root\"
-                renew_key: \"true\"
-                ssl_service_name: \"ssl_service\"
-                ssl_service_command: \"restarted\"
-                key_file: \"/etc/ssl/key/www.mydomain.com.key\"
-                key_mode: \"0600\"
-                key_owner: \"root\"
-                key_group: \"root\""
+  ided.ugent.be:
+    certificate_file: \"/etc/ssl/cert/www.mydomain.com\"
+    certificate_mode: \"0644\"
+    certificate_owner: \"root\"
+    certificate_group: \"root\"
+    certificate_type: \"ssl_multi_domain\"
+    chain_file: \"/etc/ssl/chain/www.mydomain.com.chain\"
+    chain_mode: \"0644\"
+    chain_owner: \"root\"
+    chain_group: \"root\"
+    renew_key: \"true\"
+    ssl_service_name: \"ssl_service\"
+    ssl_service_command: \"restarted\"
+    key_file: \"/etc/ssl/key/www.mydomain.com.key\"
+    key_mode: \"0600\"
+    key_owner: \"root\"
+    key_group: \"root\""
           it { is_expected.to contain_file('/etc/facter/facts.d/facts-ided.ugent.be-certificate.yaml')
             .with_content(content)
           }

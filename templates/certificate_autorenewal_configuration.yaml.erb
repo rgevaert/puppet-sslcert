@@ -2,22 +2,22 @@
 # puppet-sslcert
 ---
 auto_cert_renewal_certificates:
-        <%= @name %>:
-                certificate_file: "<%= @certificate_file %>"<% unless @certificate_mode.empty? %>
-                certificate_mode: "<%= @certificate_mode %>"<% end %><% unless @certificate_owner.empty? %>
-                certificate_owner: "<%= @certificate_owner %>"<% end %><% unless @certificate_group.empty? %>
-                certificate_group: "<%= @certificate_group %>"<% end %><% unless @certificate_type.empty? %>
-                certificate_type: "<%= @certificate_type %>"<% end %><% if @chainenabled == true %>
-                chain_file: "<%= @chain_file %>"<% unless @chain_mode.empty? %>
-                chain_mode: "<%= @chain_mode %>"<% end %><% unless @chain_owner.empty? %>
-                chain_owner: "<%= @chain_owner %>"<% end %><% unless @chain_group.empty? %>
-                chain_group: "<%= @chain_group %>"<% end %><% end %><% unless @common_name.empty? %>
-                common_name: "<%= @common_name %>"<% end %><% unless @san_names.empty? or @common_name.empty? %>
-                san_names: "<%= @san_names %>"<% end %><% unless @renew_key.empty? %>
-                renew_key: "<%= @renew_key %>"<% end %><% unless @ssl_service_name.empty? %>
-                ssl_service_name: "<%= @ssl_service_name %>"<% end %><% unless @ssl_service_command.empty? %>
-                ssl_service_command: "<%= @ssl_service_command %>"<% end %>
-                key_file: "<%= @key_file %>"<% unless @key_mode.empty? %>
-                key_mode: "<%= @key_mode %>"<% end %><% unless @key_owner.empty? %>
-                key_owner: "<%= @key_owner %>"<% end %><% unless @key_group.empty? %>
-                key_group: "<%= @key_group %>"<% end -%>
+  <%= @name %>:
+    certificate_file: "<%= @certificate_file %>"<% unless @certificate_mode.empty? %>
+    certificate_mode: "<%= @certificate_mode %>"<% end %><% unless @certificate_owner.empty? %>
+    certificate_owner: "<%= @certificate_owner %>"<% end %><% unless @certificate_group.empty? %>
+    certificate_group: "<%= @certificate_group %>"<% end %><% unless @certificate_type.empty? %>
+    certificate_type: "<%= @certificate_type %>"<% end %><% if @chainenabled == true %>
+    chain_file: "<%= @chain_file %>"<% unless @chain_mode.empty? %>
+    chain_mode: "<%= @chain_mode %>"<% end %><% unless @chain_owner.empty? %>
+    chain_owner: "<%= @chain_owner %>"<% end %><% unless @chain_group.empty? %>
+    chain_group: "<%= @chain_group %>"<% end %><% end %><% unless @common_name.empty? %>
+    common_name: "<%= @common_name %>"<% end %><% unless @san_names.empty? or @common_name.empty? %>
+    san_names: "<%= @san_names %>"<% end %><% unless @renew_key.empty? %>
+    renew_key: "<%= @renew_key %>"<% end %><% unless @ssl_service_name.empty? %>
+    ssl_service_name: "<%= @ssl_service_name %>"<% end %><% unless @ssl_service_command.empty? %>
+    ssl_service_command: "<%= @ssl_service_command %>"<% end %>
+    key_file: "<%= @key_file %>"<% unless @key_mode.empty? %>
+    key_mode: "<%= @key_mode %>"<% end %><% unless @key_owner.empty? %>
+    key_owner: "<%= @key_owner %>"<% end %><% unless @key_group.empty? %>
+    key_group: "<%= @key_group %>"<% end -%>
