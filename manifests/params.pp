@@ -19,5 +19,6 @@ class sslcert::params {
   $facts_path_owner = 'root'
   $facts_path_group = 'root'
   $auto_certificate_renewal_default_enabled = false
+  $chainenabled = true
 
 }

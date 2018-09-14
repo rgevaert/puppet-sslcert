@@ -7,6 +7,7 @@ class sslcert (
   $certpath     = $sslcert::params::certpath,
   $keypath      = $sslcert::params::keypath,
   $auto_certificate_renewal = $sslcert::params::auto_certificate_renewal_default_enabled,
+  $chainenabled = $sslcert::params::chainenabled,
 
 ) inherits sslcert::params {
 

@@ -3,84 +3,148 @@
 define sslcert::cert (
   $certname,
   $ensure              = 'present',
-  $csr                 = '',
-  $certpath            = $sslcert::certpath,
-  $certificate_file    = '',
-  $certificate_type    = '',
-  $chain               = '',
-  $chainpath           = '',
-  $chain_file          = '',
-  $common_name         = '',
-  $san_names           = '',
-  $ssl_service_name    = '',
-  $ssl_service_command = '',
-  $owner               = 'root',
-  $group               = 'root',
-  $mode                = '0644',
-  $cert                = '',
-  $keypath             = $sslcert::keypath,
-  $keyname             = undef,
-  $keyowner            = undef,
-  $keygroup            = undef,
-  $keymode             = undef,
-  $key                 = '',
-  $renew_key           = '',
+  $csr                 = '', # not used, don't ask
+  $cert                = '', # actual cert
+  $certpath            = $::sslcert::certpath,# backward compatiblity (directory)
+  $certfile            = '', # complete path of file (dir+file)
+  $certowner           = undef, # default same as owner
+  $certgroup           = undef, # default same as group
+  $certmode            = undef, # default same as mode
+  $certtype            = '', # needed for digicert request
+  $chain               = '', # actual chain
+  $chainpath           = $::sslcert::certpath, #backward compatiblity (directory)
+  $chainfile           = '', # complete path of file (dir+file)
+  $chainowner          = undef, # default same as owner
+  $chaingroup          = undef, # default same as group
+  $chainmode           = undef, # default same as mode
+  $chainenabled        = $::sslcert::chainenabled,
+  $common_name         = '', # ex. something.com
+  $san_names           = '', # comma seperated list, common_name is required for this
+  $ssl_service_name    = '', # ex. apache
+  $ssl_service_command = '', # ex. restarted
+  $owner               = 'root', # default value for key,chain,cert
+  $group               = 'root', # default value for key,chain,cert
+  $mode                = '0644', # default value for chain,cert
+  $keypath             = $::sslcert::keypath, # backward compatiblity (directory)
+  $keyfile             = '', # complete path of file (dir+file)
+  $keyname             = undef, # default certname
+  $keyowner            = undef, # default same as owner
+  $keygroup            = undef, # default same as group
+  $keymode             = undef, # default value 0600
+  $key                 = '', # actual key
+  $renew_key           = '', # force key renewal with cert request
 ) {
 
-  file { "/etc/facter/facts.d/facts-${certname}-certificate.yaml":
-    ensure  => $ensure,
-    content => template('sslcert/certificate_autorenewal_configuration.yaml.erb'),
+  require '::sslcert'
+
+  if ( $common_name == '' and $san_names != '' ){
+    fail("Sslcert::cert You can not have san_names (${san_names}) with empty common name ")
+  }
+
+  $key_owner = $keyowner ? {
+    undef   => $owner,
+    default => $keyowner,
+  }
+  $key_group = $keygroup ? {
+    undef   => $group,
+    default => $keygroup,
+  }
+  $key_mode =  $keymode ? {
+    undef   => '0600',
+    default => $keymode,
+  }
+
+  $key_file = $keyfile ? {
+    '' => $keyname ? {
+      undef   => "${keypath}/${certname}.key",
+      default => "${keypath}/${keyname}",
+    },
+    default => $keyfile,
+  }
+
+  if $key != '' {
+    file { $key_file:
+      ensure    => $ensure,
+      show_diff => false,
+      content   => $key,
+      owner     => $key_owner,
+      group     => $key_group,
+      mode      => $key_mode,
+    }
+  }
+
+
+  $chain_owner = $chainowner ? {
+    undef      => $owner,
+    default    => $chainowner
+  }
+  $chain_group = $chaingroup ? {
+    undef   => $group,
+    default => $chaingroup,
+  }
+  $chain_mode =  $chainmode ? {
+    undef   => $mode,
+    default => $chainmode,
+  }
+
+  $chain_file = $chainfile ? {
+    '' => $chainname ? {
+      undef   => "${chainpath}/${certname}.chain",
+      default => "${chainpath}/${chainname}",
+    },
+    default => $chainfile,
+  }
+
+  if $chain != '' {
+    file { $chain_file:
+      ensure  => present,
+      content => $chain,
+      owner   => $chain_owner,
+      group   => $chain_group,
+      mode    => $chain_mode,
+    }
+  }
+
+  $certificate_owner = $certowner ? {
+    undef      => $owner,
+    default    => $certowner
+  }
+  $certificate_group = $certgroup ? {
+    undef   => $group,
+    default => $certgroup,
+  }
+  #backward compatibility
+  $certificate_mode =  $certmode ? {
+    undef   => $mode,
+    default => $certmode,
+  }
+  #needed for facts
+  $certificate_type = $certtype
+
+  $certificate_file = $certfile ? {
+    '' => $certname ? {
+      undef   => "${certpath}/${certname}",
+      default => "${certpath}/${certname}",
+    },
+    default => $certfile,
   }
 
 
   if $cert != '' {
-    file { "${certpath}/${certname}":
+    file { $certificate_file:
       ensure  => $ensure,
       content => $cert,
-      owner   => $owner,
-      group   => $group,
-      mode    => $mode,
+      owner   => $certificate_owner,
+      group   => $certificate_group,
+      mode    => $certificate_mode,
     }
   }
 
-  $keyfile = $keyname ? {
-    undef   => "${certname}.key",
-    default => $keyname,
-  }
-  if $key != '' {
-    file { "${keypath}/${keyfile}":
-      ensure    => $ensure,
-      show_diff => false,
-      content   => $key,
-      owner     => $keyowner ? {
-        undef   => $owner,
-        default => $keyowner,
-      },
-      group     => $keygroup ? {
-        undef   => $group,
-        default => $keygroup,
-      },
-      mode      => $keymode ? {
-        undef   => '0600',
-        default => $keymode,
-      },
-    }
-  }
 
-  if $chainpath == '' {
-    $internal_chainpath = "${certpath}/${certname}.chain"
-  }else {
-    $internal_chainpath = $chainpath
-  }
 
-  if $chain != '' {
-    file { $internal_chainpath:
-      ensure  => present,
-      content => $chain,
-      owner   => $owner,
-      group   => $group,
-      mode    => $mode,
-    }
+  #facts using variables from above
+  file { "/etc/facter/facts.d/facts-${name}-certificate.yaml":
+    ensure  => $ensure,
+    content => template('sslcert/certificate_autorenewal_configuration.yaml.erb'),
   }
-
 }
